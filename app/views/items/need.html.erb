@@ -1,0 +1,53 @@
+<script type="text/javascript">
+	var itemtypeahead = ["hello", "good", "toilet roll", "kitchen roll"];
+</script>
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h1>Purchases <small>- We need...</small></h1>
+		</div>
+	</div>
+</div>
+<div class="row">
+
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>What do we need?</h2>
+				<div class="well">
+
+					<%= form_for @newItem, url: {action: "need"}, html: {class: "form"} do |f| %>
+						<div class="form-group">
+							<%= f.text_field :name, class: "form-control input-lg", placeholder: "Name of item...", :"data-provide" => "typeahead", :"data-source" => "itemtypeahead", autosuggest: "off" %>
+						</div>
+						<%= f.submit "Mark item as needed", class: "btn btn-primary btn-lg btn-block" %>
+					<% end %>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Common Items</h3>
+				<ul class="list-group">
+					<li class="list-group-item clearfix">
+						<h4 class="list-group-item-heading">Toilet Roll<br><small>last bought on Friday 24th Oct</small></h4>
+						<button class="btn btn-primary btn-block">We need this</button>
+					</li>
+					<li class="list-group-item clearfix">
+						<h4 class="list-group-item-heading">Toilet Roll<br><small>last bought on Friday 24th Oct</small></h4>
+						<button class="btn btn-primary btn-block">We need this</button>
+					</li>
+					<li class="list-group-item clearfix">
+						<h4 class="list-group-item-heading">Toilet Roll<br><small>last bought on Friday 24th Oct</small></h4>
+						<button class="btn btn-primary btn-block">We need this</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>

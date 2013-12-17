@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Houseofrrrs</title>
+	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Houseofrrrs">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>html { -webkit-text-size-adjust: 100%; }</style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="container">
+		<div class="navbar-header">
+		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-main">
+		      <span class="sr-only">Toggle navigation</span>
+		      <span class="icon-bar"></span>
+		      <span class="icon-bar"></span>
+		      <span class="icon-bar"></span>
+		    </button>
+		    <%= link_to "House of rrrs", :root, class: "navbar-brand", id: "logo" %>
+		  </div>
+
+		  <!-- Collect the nav links, forms, and other content for toggling -->
+		  <div class="collapse navbar-collapse" id="navbar-main">
+		    <ul class="nav navbar-nav">
+		      <li class="<%= 'active' if params[:controller] == 'tasks' %>"><a href="#">Tasks</a></li>
+		      <li class="<%= 'active' if params[:controller] == 'items' %>"><%= link_to "Purchases", :items_overview %></li>
+		    </ul>
+		    <% if current_user %>
+			    <ul class="nav navbar-nav navbar-right">
+			      <li class="dropdown">
+			        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Logged in as <%= current_user.name %> <b class="caret"></b></a>
+			        <ul class="dropdown-menu">
+			        	<li><a href="#">Options</a></li>
+			          	<li><%= link_to "Logout", :session_destroy %></li>
+			        </ul>
+			      </li>
+			    </ul>
+		    <% end %>
+		</div><!-- /.navbar-collapse -->
+	</div>
+</nav>
+
+<div class="container">
+   <% flash.each do |name, msg| %>
+  		<%= content_tag :div, msg, class: "alert alert-info" %>
+	<% end %>
+</div>
+
+
+<div id="main" class="container">
+	<%= yield %>
+</div>
+
+</body>
+</html>

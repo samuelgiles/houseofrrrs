@@ -1,0 +1,57 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h1>Purchases</h1>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	
+	<div class="col-md-4">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well">
+					<%= link_to "I've bought...", :purchased, class: "btn btn-primary btn-lg btn-block" %>
+					<%= link_to "We need...", :need, class: "btn btn-primary btn-lg btn-block" %>
+					<%= link_to "Dolla dolla bills", :purchases, class: "btn btn-default btn-lg btn-block" %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-8">
+		<div class="row">
+			
+			<div class="col-md-12">
+				
+				<h3>We need:</h3>
+				<% if @neededItems.count > 0 %>
+					<ul class="list-group">
+						<% @neededItems.each do |neededItem| %>
+							<li class="list-group-item">
+								<h4 class="list-group-item-heading"><%= neededItem.name %></h4>
+								<p class="list-group-item-text"><strong><%= neededItem.user.name %></strong> marked as needed on <%= neededItem.updated_at.strftime('%a ') + neededItem.updated_at.day.ordinalize + neededItem.updated_at.strftime(' %b') %></p>
+							</li>
+						<% end %>
+					</ul>
+					<% else %>
+					<p class="alert alert-info">We don't need anything :)</p>
+					<% end%>
+
+				<h3>Purchase Diary</h3>
+				<ul class="list-group">
+					<% @diaryItems.each do |diaryItem| %>
+					<li class="list-group-item">
+						<h4 class="list-group-item-heading"><%= diaryItem.item.name %></h4>
+						<p class="list-group-item-text"><strong><%= diaryItem.user.name %></strong> purchased on <%= diaryItem.updated_at.strftime('%a ') + diaryItem.updated_at.day.ordinalize + diaryItem.updated_at.strftime(' %b') %> for <strong><%= number_to_currency(diaryItem.price,unit:"&pound;") %></strong></p>
+					</li>
+					<% end %>
+					
+				</ul>
+			</div>
+
+		</div>
+	</div>
+	
+</div>

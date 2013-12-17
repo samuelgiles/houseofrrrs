@@ -1,0 +1,22 @@
+
+<div class="row home">
+	<div class="col-md-6">
+		<h1><%= link_to "", :tasks, class: "icon-calendar" %> task</h1>
+		<p>Tidy bathroom on Friday 21st Oct</p>
+		<button type="button" class="btn btn-primary btn-lg btn-block">I have completed this task</button>
+		<button type="button" class="btn btn-default btn-lg btn-block">View tasks</button>
+	</div>
+
+	<div class="col-md-6">
+		<h1><%= link_to "", :tasks, class: "icon-cart" %> shopping</h1>
+		<ul>
+			<% @neededItems.each do |item| %>
+				<li><%= item.name %></li>
+			<% end %>
+		</ul>
+		
+		<%= link_to "I have purchased an item", :purchased, class: "btn btn-primary btn-lg btn-block" %>
+		<%= link_to "We need an item", :need, class: "btn btn-success btn-lg btn-block" %>
+		<%= link_to "View shopping", :items_overview, class: "btn btn-default btn-lg btn-block" %>
+	</div>
+</div>
