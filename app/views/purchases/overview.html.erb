@@ -8,18 +8,97 @@
 
 <div class="row">
 
-	<div class="col-md-8">
+	<div class="col-md-4">
 		<div class="row">
 			
 			<div class="col-md-12">
 				
-				<h3>Monthly Totals:</h3>
-				<p>Coming shortly</p>
+				<h3>Pay Outstanding Balance:</h3>
+				
+				<% if current_user.unpaid_shares.count > 0 %>
+					<ul class="list-group">
+					<% @userBalances.each do |userBalance| %>
+						
+						<% @userowes = current_user.unpaid_shares.includes(:purchase).where(purchases: {user_id: userBalance.id}).sum('price') %>
 
+						<% if userBalance.id != current_user.id && @userowes > 0 %>
+						<li class="list-group-item">
+							
+							<h4 class="list-group-item-heading">
+								You owe <%= userBalance.name %> <%= number_to_currency(@userowes,unit:"&pound;") %>
+							</h4>
+							<%= link_to "I have paid #{userBalance.name} #{number_to_currency(@userowes,unit:"£")}", {:controller => "purchases", :action => "payuser", :pay_user_id => userBalance.id }, class: "btn btn-primary btn-lg btn-block" %>
+
+						</li>
+						<% end %>
+						
+					<% end %>
+					</ul>
+				<% else %>
+				<p class="alert alert-info">You owe nothing! Yay!</p>
+				<% end %>
 
 			</div>
 
 		</div>
 	</div>
+
+	<div class="col-md-8">
+		<div class="row">
+			
+			<div class="col-md-12">
+				
+<<<<<<< HEAD
+				<h3>Monthly Totals:</h3>
+				<p>Coming shortly</p>
+=======
+				<h3>Current Balances:</h3>
+				<ul class="list-group">
+					<% @userBalances.each do |userBalance| %>
+						
+						<li class="list-group-item">
+							<h4 class="list-group-item-heading"><%= userBalance.id == current_user.id ? "You are " : userBalance.name + " is" %> owed : <%= number_to_currency(userBalance.owed_shares.sum('price'),unit:"&pound;") %></h4>
+							<% @userBalances.each do |user| %>
+							<% if user.id != userBalance.id %>
+								<p class="list-group-item-text">
+								<% if user.id == current_user.id %><strong><% end %>
+									<%= user.id == current_user.id ? "You owe " : user.name + " owes " %>  
+									<%= number_to_currency(user.unpaid_shares.includes(:purchase).where(purchases: {user_id: userBalance.id}).sum('price'),unit:"&pound;") %>
+									<% if user.id == current_user.id %></strong><% end %>
+								</p>
+								<% end %>
+							<% end %>
+						</li>
+						
+					<% end %>
+				
+				</ul>
+>>>>>>> refs/heads/master
+
+			</div>
+
+		</div>
+		<div class="row">
+			
+			<div class="col-md-12">
+				
+				<h3>Last 4 weeks of payments:</h3>
+				<ul class="list-group">
+					<% @recentPayments.each do |payment| %>
+						
+						<li class="list-group-item">
+							<h4 class="list-group-item-heading"><%= payment.user.name %> paid <%= payment.destination_user.name %> <%= number_to_currency(payment.amount,unit:"&pound;") %></h4>
+							<p class="list-group-item-text">At 15:30 on December 24th 2013</p>
+						</li>
+						
+					<% end %>
+				
+				</ul>
+
+			</div>
+
+		</div>
+	</div>
+
 	
 </div>
