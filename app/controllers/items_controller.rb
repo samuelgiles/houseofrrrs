@@ -68,7 +68,7 @@ class ItemsController < ApplicationController
         @share.purchase = @purchase
         @share.price = (@purchase.price/@users.count).round(2)
         if user.id == @purchase.user_id
-          @share.paid = @purchase.created_at
+          @share.paid = 0
         end
         @share.save
 
