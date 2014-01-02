@@ -28,6 +28,7 @@ end
 
 gem 'therubyracer' # Ruby
 gem 'less-rails'
+gem 'twilio-ruby'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -21,6 +21,19 @@ class PurchasesController < ApplicationController
 	  	@payment.amount = owes
 	  	@payment.save
 
+	  	if @destinationUser.phone != nil
+
+	        # set up a client to talk to the Twilio REST API 
+	        @client = Twilio::REST::Client.new SECRET_KEYS["sms_account_sid"], SECRET_KEYS["sms_auth_token"]
+	         
+	        @client.account.messages.create({
+	          :from => '+441290211291', 
+	          :to => @destinationUser.phone, 
+	          :body => "Houseofrrrs: #{current_user.name} says that they have paid you #{number_to_currency(owes,unit:"&pound;")}",  
+	        })
+
+    	end
+
 	  	#Save payment
 	  		#Mark all shares as done
 	  	unpaidSharesForDestinationUser.each do |share|

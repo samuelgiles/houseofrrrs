@@ -19,6 +19,21 @@ class ItemsController < ApplicationController
         @item.touch
 
         flash.notice = "Marked item (" + @item.name + ") as needed"
+
+         
+        User.where.not(phone: nil).each do |user|
+
+          # set up a client to talk to the Twilio REST API 
+          @client = Twilio::REST::Client.new SECRET_KEYS["sms_account_sid"], SECRET_KEYS["sms_auth_token"]
+           
+          @client.account.messages.create({
+            :from => '+441290211291', 
+            :to => user.phone, 
+            :body => "Houseofrrrs: #{current_user.name} says that we need #{@item.name}",  
+          })
+
+        end
+        
       	redirect_to action: 'overview'
 
   	else
@@ -74,6 +89,19 @@ class ItemsController < ApplicationController
 
       end
 
+      User.where.not(phone: nil).each do |user|
+
+        # set up a client to talk to the Twilio REST API 
+        @client = Twilio::REST::Client.new SECRET_KEYS["sms_account_sid"], SECRET_KEYS["sms_auth_token"]
+         
+        @client.account.messages.create({
+          :from => '+441290211291', 
+          :to => user.phone, 
+          :body => "Houseofrrrs: #{current_user.name} says that they have bought #{@item.name}",  
+        })
+
+      end
+
       flash.notice = "Marked item as purchased (" + @item.name + ")"
       redirect_to action: 'overview'
 
@@ -83,6 +111,22 @@ class ItemsController < ApplicationController
       render 'purchased'
 
     end
+  end
+
+  def removepurchase
+
+    #get purchase
+    @purchase = Purchase.find(params[:purchaseid])
+
+    #remove shares
+    @purchase.shares.delete_all
+
+    #delete
+    flash.notice = "Removed purchase (\"#{@purchase.item.name}\")"
+    @purchase.delete
+
+    redirect_to action: 'overview'
+
   end
 
 end

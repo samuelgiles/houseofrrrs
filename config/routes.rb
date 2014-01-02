@@ -15,6 +15,7 @@ Houseofrrrs::Application.routes.draw do
   post '/bought' => 'items#createpurchase', :as => :purchased_create
   get '/purchases' => 'purchases#overview', :as => :purchases
   get '/pay' => 'purchases#payuser', :as => :pay
+  get '/removepurchase' => 'items#removepurchase', :as => :remove_purchase
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
