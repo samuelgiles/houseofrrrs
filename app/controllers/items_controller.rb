@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
 
   def create
 
-  	@item = Item.find_or_initialize_by(name: params[:item][:name])
+    @item = Item.find(:first, :conditions => [ "lower(name) = ?", params[:item][:name].downcase ]) || Product.create(:name => params[:item][:name])
 
     @item.user = current_user
     @item.needed = true
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
   end
 
   def createpurchase
-    @item = Item.find_or_initialize_by(name: params[:item][:name])
+    @item = Item.find(:first, :conditions => [ "lower(name) = ?", params[:item][:name].downcase ]) || Product.create(:name => params[:item][:name])
     @item.user = current_user
     @item.needed = false
     @item.save
