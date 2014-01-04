@@ -27,6 +27,27 @@
 								<%= newPurchase_fields.text_field :price, class: "form-control input-lg", placeholder: "Price of item...", :"data-provide" => "typeahead", :"data-source" => "itemtypeahead", autosuggest: "off" %>
 							<% end %>
 						</div>
+						<div class="form-group">
+							<select class="form-control">
+								<option>Shared between everyone</option>
+								<option>Shared between selection...</option>
+							</select>
+						</div>
+						
+						<div class="form-group">
+							<label class="checkbox-inline">
+								<input type="checkbox" id="inlineCheckbox1" value="option1"> <strong>Me</strong>
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="inlineCheckbox1" value="option1"> Rob
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="inlineCheckbox1" value="option1"> Sam
+							</label>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="inlineCheckbox1" value="option1"> Rhi
+							</label>
+						</div>
 						<%= f.submit "Add Purchase", class: "btn btn-primary btn-lg btn-block" %>
 					<% end %>
 
