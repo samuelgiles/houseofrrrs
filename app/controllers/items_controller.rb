@@ -98,11 +98,11 @@ class ItemsController < ApplicationController
         # set up a client to talk to the Twilio REST API 
         @client = Twilio::REST::Client.new SECRET_KEYS["sms_account_sid"], SECRET_KEYS["sms_auth_token"]
         
-        #@client.account.messages.create({
-        #  :from => '+441290211291', 
-        #  :to => user.phone, 
-        #  :body => "Houseofrrrs: #{current_user.name} says that they have bought #{@item.name}",  
-        #})
+        @client.account.messages.create({
+          :from => '+441290211291', 
+          :to => user.phone, 
+          :body => "Houseofrrrs: #{current_user.name} says that they have bought #{@item.name}",  
+        })
 
       end
 
