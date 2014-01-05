@@ -77,14 +77,16 @@ class ItemsController < ApplicationController
     if @purchase.save
 
       #For each user in the system we need to create a share:
-      @users = User.all
+      @users = params[:users].select{ |k,v| v[:will_pay_share].to_f > 0 }
       @users.each do |user|
 
+        shareUser = User.find(user[0])
+
         @share = Share.new
-        @share.user = user
+        @share.user = shareUser
         @share.purchase = @purchase
         @share.price = (@purchase.price.to_f/@users.count.to_f).round(2)
-        if user.id == @purchase.user_id
+        if shareUser.id == @purchase.user_id
           @share.paid = 0
         end
         @share.save
@@ -95,12 +97,12 @@ class ItemsController < ApplicationController
 
         # set up a client to talk to the Twilio REST API 
         @client = Twilio::REST::Client.new SECRET_KEYS["sms_account_sid"], SECRET_KEYS["sms_auth_token"]
-         
-        @client.account.messages.create({
-          :from => '+441290211291', 
-          :to => user.phone, 
-          :body => "Houseofrrrs: #{current_user.name} says that they have bought #{@item.name}",  
-        })
+        
+        #@client.account.messages.create({
+        #  :from => '+441290211291', 
+        #  :to => user.phone, 
+        #  :body => "Houseofrrrs: #{current_user.name} says that they have bought #{@item.name}",  
+        #})
 
       end
 
