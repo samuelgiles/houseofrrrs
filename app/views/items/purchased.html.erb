@@ -33,20 +33,16 @@
 								<option>Shared between selection...</option>
 							</select>
 						</div>
-						
 						<div class="form-group">
-							<label class="checkbox-inline">
-								<input type="checkbox" id="inlineCheckbox1" value="option1"> <strong>Me</strong>
-							</label>
-							<label class="checkbox-inline">
-								<input type="checkbox" id="inlineCheckbox1" value="option1"> Rob
-							</label>
-							<label class="checkbox-inline">
-								<input type="checkbox" id="inlineCheckbox1" value="option1"> Sam
-							</label>
-							<label class="checkbox-inline">
-								<input type="checkbox" id="inlineCheckbox1" value="option1"> Rhi
-							</label>
+						<% @users.each do |user| %>
+							
+								<%= fields_for "users[]", user do |user_fields| %>
+									<%= user_fields.label :will_pay_share, :class => "checkbox-inline" do %>
+									  <%= user_fields.check_box :will_pay_share %><%= user.name %>
+									<% end %>
+								<% end %>
+							
+						<% end %>
 						</div>
 						<%= f.submit "Add Purchase", class: "btn btn-primary btn-lg btn-block" %>
 					<% end %>

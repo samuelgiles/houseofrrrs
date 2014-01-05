@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
 
   def create
 
-    @item = Item.find(:first, :conditions => [ "lower(name) = ?", params[:item][:name].downcase ]) || Product.create(:name => params[:item][:name])
+    @item = Item.find(:first, :conditions => [ "lower(name) = ?", params[:item][:name].downcase ]) || Item.new(:name => params[:item][:name])
 
     @item.user = current_user
     @item.needed = true
@@ -58,10 +58,12 @@ class ItemsController < ApplicationController
     @newPurchase = Purchase.new
     @newPurchase.item = @purchasedItem
 
+    @users = User.all
+
   end
 
   def createpurchase
-    @item = Item.find(:first, :conditions => [ "lower(name) = ?", params[:item][:name].downcase ]) || Product.create(:name => params[:item][:name])
+    @item = Item.find(:first, :conditions => [ "lower(name) = ?", params[:item][:name].downcase ]) || Item.new(:name => params[:item][:name])
     @item.user = current_user
     @item.needed = false
     @item.save
@@ -81,7 +83,7 @@ class ItemsController < ApplicationController
         @share = Share.new
         @share.user = user
         @share.purchase = @purchase
-        @share.price = (@purchase.price/@users.count).round(2)
+        @share.price = (@purchase.price.to_f/@users.count.to_f).round(2)
         if user.id == @purchase.user_id
           @share.paid = 0
         end

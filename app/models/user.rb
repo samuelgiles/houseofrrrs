@@ -12,4 +12,7 @@ class User < ActiveRecord::Base
 
 	end
 
+	#When splitting up an item we look at whether the user will pay a share:
+	attr_accessor :will_pay_share
+
 end
