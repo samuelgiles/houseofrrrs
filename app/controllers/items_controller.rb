@@ -93,14 +93,15 @@ class ItemsController < ApplicationController
 
       end
 
-      User.where.not(phone: nil).each do |user|
+      #Sent a text to all users that the item is being shared with except the person using the system
+      @purchase.shares.select{ |share| share.user.phone != nil && share.user.phone != current_user.phone }.collect {|s| s.user.phone}.each do |userPhone|
 
         # set up a client to talk to the Twilio REST API 
         @client = Twilio::REST::Client.new SECRET_KEYS["sms_account_sid"], SECRET_KEYS["sms_auth_token"]
         
         @client.account.messages.create({
           :from => '+441290211291', 
-          :to => user.phone, 
+          :to => userPhone, 
           :body => "Houseofrrrs: #{current_user.name} says that they have bought #{@item.name}",  
         })
 
