@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
     @neededItems = Item.where(needed: true).order("updated_at DESC")
 
-  	@diaryItems = Purchase.where('created_at >= ?', 4.week.ago).order("updated_at desc")
+  	@diaryItems = Purchase.where('created_at >= ?', 4.week.ago).order("updated_at desc").includes(:shares)
 
   end
 

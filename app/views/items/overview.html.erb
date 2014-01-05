@@ -45,6 +45,7 @@
 					<li class="list-group-item">
 						<h4 class="list-group-item-heading"><%= diaryItem.item.name %></h4>
 						<p class="list-group-item-text"><strong><%= diaryItem.user.name %></strong> purchased on <%= diaryItem.updated_at.strftime('%a ') + diaryItem.updated_at.day.ordinalize + diaryItem.updated_at.strftime(' %b') %> for <strong><%= number_to_currency(diaryItem.price,unit:"&pound;") %></strong></p>
+						<p class="list-group-item-text"><small>Shared with <%= diaryItem.shared_with %></small></p>
 						<% if diaryItem.user.id == current_user.id %>
 							<%= link_to "Remove Item", {:controller => "items", :action => "removepurchase", :purchaseid => diaryItem.id }, class: "btn btn-default btn-block" %>
 						<% end %>
