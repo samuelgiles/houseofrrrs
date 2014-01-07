@@ -27,4 +27,13 @@ class UsersController < ApplicationController
   	redirect_to action: 'options'
 
   end
+
+  def changetelephone
+
+  	current_user.phone = params[:user][:phone]
+	current_user.save
+	flash.notice = "Phone Changed Successfully"
+	redirect_to action: 'options'
+
+  end
 end

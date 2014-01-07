@@ -18,6 +18,7 @@ Houseofrrrs::Application.routes.draw do
   get '/removepurchase' => 'items#removepurchase', :as => :remove_purchase
   get '/options' => 'users#options', :as => :options
   patch '/options/changepin' => 'users#changepin', :as => :options_change_pin
+  patch '/options/changetelephone' => 'users#changetelephone', :as => :options_change_telephone
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
