@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="page-header">
+			<h1>Options</h1>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Change Pin:</h3>
+				<%= form_for current_user, url: {action: "changepin"}, html: {class: "form"} do |f| %>
+					
+					<div class="form-group">
+						<%= f.text_field :pin, class: "form-control input-lg", value: "", placeholder: "Pin code", autosuggest: "off", maxlength: "4" %>
+					</div>
+
+					<div class="form-group">
+						<%= f.submit "Change Pin", class: "btn btn-primary btn-lg btn-block" %>
+					</div>
+
+				<% end %>
+			</div>
+		</div>
+	</div>
