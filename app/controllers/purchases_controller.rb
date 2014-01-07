@@ -6,6 +6,8 @@ class PurchasesController < ApplicationController
 
   def payuser
 
+  	pingit = params[:pingit] == "true" ? true : false
+
   	#Try to find user:
   	@destinationUser = User.find(params[:pay_user_id])
 
@@ -42,10 +44,14 @@ class PurchasesController < ApplicationController
 	  	end
 
 	  	#flash.notice = "Paid share of #{unpaidSharesForDestinationUser.count} #{pluralize(unpaidSharesForDestinationUser.count, 'item')} at #{number_to_currency(owes, "£")} to #{@destinationUser.name}" 
-      	redirect_to action: 'overview'
-
+      	if pingit == true
+      		redirect_to @payment.barclaysPingItURI
+      	else
+      		redirect_to action: 'overview'
+      	end
   	end
 
   end
+
 
 end
