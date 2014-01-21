@@ -1,4 +1,6 @@
 class PurchasesController < ApplicationController
+  include ActionView::Helpers::NumberHelper
+  
   def overview
   	@userBalances = User.all
   	@recentPayments = Payment.where('created_at >= ?', 4.week.ago).order("updated_at desc")
@@ -45,6 +47,7 @@ class PurchasesController < ApplicationController
 
 	  	#flash.notice = "Paid share of #{unpaidSharesForDestinationUser.count} #{pluralize(unpaidSharesForDestinationUser.count, 'item')} at #{number_to_currency(owes, "£")} to #{@destinationUser.name}" 
       	if pingit == true
+      		#0333 200 1012
       		redirect_to @payment.barclaysPingItURI
       	else
       		redirect_to action: 'overview'

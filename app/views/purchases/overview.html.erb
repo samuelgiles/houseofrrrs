@@ -27,7 +27,6 @@
 							<h4 class="list-group-item-heading">
 								You owe <%= userBalance.name %> <%= number_to_currency(@userowes,unit:"&pound;") %>
 							</h4>
-							<%= link_to "PingIt", {:controller => "purchases", :action => "payuser", :pingit => true, :pay_user_id => userBalance.id }, class: "btn btn-primary btn-lg btn-block", :target => "_blank" %>
 							<%= link_to "I have paid #{userBalance.name} #{number_to_currency(@userowes,unit:"£")}", {:controller => "purchases", :action => "payuser", :pay_user_id => userBalance.id, :pingit => false }, class: "btn btn-default btn-lg btn-block" %>
 
 						</li>
